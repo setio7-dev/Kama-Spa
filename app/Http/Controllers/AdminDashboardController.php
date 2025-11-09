@@ -202,6 +202,19 @@ class AdminDashboardController extends Controller
         ]);
     }
 
+    public function deletePengolaan(string $id)
+    {
+        $cashPayment = KasPayment::find($id);
+        Storage::disk("public")->delete($cashPayment->proof_payment);
+        $cashPayment->delete();
+
+        return redirect()->route("adminPengelolaan")->with([
+            "route" => route("adminPengelolaan"),
+            "icon" => "success",
+            "message" => "Hapus Kas Berhasil!"
+        ]);
+    }
+
     public function report()
     {
         $closeKasParent = CloseKasParent::with('cashChild')->orderBy("created_at", "DESC")->get();

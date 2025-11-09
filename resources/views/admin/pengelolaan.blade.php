@@ -161,10 +161,15 @@
                                     <td>Rp. {{ number_format($data->credit, 0, ',', ',') }}</td>
                                     <td>{{ $data->type_payment }}</td>
                                     <td>{{ $data->notes }}</td>
-                                    <td>
-                                        <a href="{{ route('adminPengelolaanPrint', $data->id) }}" target="_blank">
-                                            <button class="btn btn-success text-white me-2">Cetak</button>
+                                    <td class="d-flex">
+                                        <a href="{{ route('adminPengelolaanPrint', $data->id) }}" target="_blank" class="me-2">
+                                            <button class="btn btn-success text-white">Cetak</button>
                                         </a>
+                                        <form action="{{ route('adminPengelolaanDelete', $data->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="me-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger text-white">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

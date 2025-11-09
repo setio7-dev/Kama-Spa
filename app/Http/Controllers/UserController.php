@@ -69,33 +69,39 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function adminShow()
     {
-        //
+        $auth = Auth::user();
+        $user = User::where("id", $auth->id)->first();
+        return view('admin.profile', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function accountingShow()
     {
-        //
+        $auth = Auth::user();
+        $user = User::where("id", $auth->id)->first();
+        return view('admin.profile', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function leaderShow()
+    {
+        $auth = Auth::user();
+        $user = User::where("id", $auth->id)->first();
+        return view('admin.profile', compact('user'));
+    }
+
     public function update(Request $request, $routes)
     {
-        $user = Auth::user();
-        $user->update([
-            "name"=> $request->name ?? $user->name,
-            "email"=> $request->eamil ?? $user->email,
-            "password"=> Hash::make( $request->password) ?? $user->password,
-        ]);
+        $auth = Auth::user();
+        $user = User::where("id", $auth->id)->first();
+
+        $user->name = $request->name ?? $user->name;        
+        $user->email = $request->email ?? $user->email;        
+        if ($request->filled('password')) {
+            $user->password = $request->password;
+        }
+        $user->save();
+
         return redirect()->route($routes)->with([
             "route" => route($routes),
             "icon" => "success",

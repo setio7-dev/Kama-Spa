@@ -17,6 +17,12 @@
         <i class="mdi mdi-content-save-all menu-icon"></i>
         <span class="menu-title">Laporan</span>
       </a>
-    </li>   
+    </li>  
+    <li class="nav-item {{ request()->path() == 'keuangan/profile' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('keuanganProfile') }}">
+        <i class="mdi mdi-account menu-icon"></i>
+        <span class="menu-title">Profil</span>
+      </a>
+    </li> 
   </ul>
 </nav>

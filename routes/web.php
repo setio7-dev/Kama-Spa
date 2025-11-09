@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function() {
     // Admin
     Route::prefix('/admin')->group(function() {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('adminDashboard');
+        Route::get('/profile', [UserController::class, 'adminShow'])->name('adminProfile');
         
         Route::get('/kas-kecil/pengajuan-kas', [AdminDashboardController::class, 'pengajuanKas'])->name('adminPengajuan');
         Route::post('/kas-kecil/pengajuan-kas', [AdminDashboardController::class, 'addPengajuan'])->name('adminPengajuanPost');
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/kas-kecil/pengelolaan-kas', [AdminDashboardController::class, 'pengelolaanKas'])->name('adminPengelolaan');
         Route::post('/kas-kecil/pengelolaan-kas/credit', [AdminDashboardController::class, 'addCredit'])->name('adminPengelolaanCreditPost');
         Route::post('/kas-kecil/pengelolaan-kas/debit', [AdminDashboardController::class, 'addDebit'])->name('adminPengelolaanDebitPost');
+        Route::delete('/kas-kecil/pengelolaan-kas/{id}', [AdminDashboardController::class, 'deletePengolaan'])->name('adminPengelolaanDelete');
 
         Route::get('/kas-kecil/print/{id}', [AdminDashboardController::class, "print"])->name('adminPengelolaanPrint');
         Route::post('/kas-kecil/pengelolaan-kas/closing', [AdminDashboardController::class, 'closingKas'])->name('adminPengelolaanClosingPost');
@@ -40,8 +42,9 @@ Route::middleware('auth')->group(function() {
     // Keuangan
     Route::prefix('/keuangan')->group(function() {
         Route::get('/dashboard', [AccountingController::class, 'index'])->name('keuanganDashboard');
-        Route::get('/dana', [AccountingController::class, 'dana'])->name('keuanganDana');
+        Route::get('/profile', [UserController::class, 'accountingShow'])->name('keuanganProfile');
 
+        Route::get('/dana', [AccountingController::class, 'dana'])->name('keuanganDana');
         Route::put('/dana/status/{id}', [AccountingController::class, 'status'])->name('keuanganDanaStatus');
 
         Route::get('/laporan', [AccountingController::class, 'report'])->name('accountingReport');
@@ -51,6 +54,8 @@ Route::middleware('auth')->group(function() {
     // Pimpinan
     Route::prefix('/pimpinan')->group(function() {
         Route::get('/dashboard', [LeaderController::class, 'index'])->name('leaderDashboard');
+        Route::get('/profile', [UserController::class, 'leaderShow'])->name('leaderProfile');
+
         Route::get('/laporan', [LeaderController::class, 'report'])->name('leaderReport');
         Route::get('/laporan/print/{id}', [LeaderController::class, "reportPrint"])->name('leaderReportPrint');
     });

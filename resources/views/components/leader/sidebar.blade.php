@@ -12,5 +12,11 @@
         <span class="menu-title">Laporan</span>
       </a>
     </li>    
+    <li class="nav-item {{ request()->path() == 'pimpinan/profile' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('leaderProfile') }}">
+        <i class="mdi mdi-account menu-icon"></i>
+        <span class="menu-title">Profil</span>
+      </a>
+    </li>
   </ul>
 </nav>
