@@ -12,6 +12,8 @@ class CloseKasChild extends Model
         "debit",
         "proof_payment",
         "type_payment",
+        "desc",
+        "date",
         "notes"
     ];
 }

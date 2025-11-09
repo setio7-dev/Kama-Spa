@@ -11,7 +11,7 @@
         <div class="col-md-3 mb-4 stretch-card transparent">
             <div class="card card-white">
                 <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Saldo Awal Hari Ini</p>
+                    <p class="mb-2" style="font-weight: 600;">Saldo Awal</p>
                     <h6 class="text-primary">Rp. {{ number_format($total, 0, ',', ',') }}</h6>
                 </div>
             </div>
@@ -19,7 +19,7 @@
         <div class="col-md-3 mb-4 stretch-card transparent">
             <div class="card card-white">
                 <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Saldo Akhir Hari Ini</p>
+                    <p class="mb-2" style="font-weight: 600;">Saldo Akhir</p>
                     <h6 class="text-primary">Rp. {{ number_format($totalClosing, 0, ',', ',') }}</h6>
                 </div>
             </div>
@@ -63,18 +63,27 @@
                             <option value="Transportasi">Transportasi</option>
                             <option value="Komisi">Komisi</option>
                             <option value="Konsumsi">Konsumsi</option>
+                            <option value="Alat Kantor">Alat Kantor</option>
                             <option value="Lain-lain">Lain-Lainnya</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Bukti Pembayaran</label>
-                        <input type="file" name="image" class="file-upload-default">
                         <div class="input-group col-xs-12 d-flex align-items-center">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                             <span class="input-group-append ms-2">
-                                <button class="file-upload-browse btn btn-primary" type="button">Unggah</button>
+                                <button type="button" class="file-upload-browse btn btn-primary">Unggah</button>
                             </span>
                         </div>
+                        <input type="file" name="image" class="file-upload-default" style="display:none;">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" name="date" class="form-control" placeholder="Tanggal">
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="desc" class="form-control" rows="4"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Catatan</label>
@@ -97,13 +106,21 @@
                     </div>
                     <div class="form-group">
                         <label>Bukti Pembayaran</label>
-                        <input type="file" name="image" class="file-upload-default">
                         <div class="input-group col-xs-12 d-flex align-items-center">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                             <span class="input-group-append ms-2">
-                                <button class="file-upload-browse btn btn-primary" type="button">Unggah</button>
+                                <button type="button" class="file-upload-browse btn btn-primary">Unggah</button>
                             </span>
                         </div>
+                        <input type="file" name="image" class="file-upload-default" style="display:none;">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" name="date" class="form-control" placeholder="Tanggal">
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="desc" class="form-control" rows="4"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Catatan</label>
@@ -139,7 +156,7 @@
                             @foreach ($listPayment as $index => $data)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $data->created_at->toDateString() }}</td>
+                                    <td>{{ $data->date }}</td>
                                     <td>Rp. {{ number_format($data->debit, 0, ',', ',') }}</td>
                                     <td>Rp. {{ number_format($data->credit, 0, ',', ',') }}</td>
                                     <td>{{ $data->type_payment }}</td>
@@ -178,5 +195,20 @@
         formCredit.style.display = 'none';
         formDebit.style.display = '';
     };
+
+    document.querySelectorAll('.file-upload-browse').forEach(button => {
+        const formGroup = button.closest('.form-group');
+        const input = formGroup.querySelector('.file-upload-default');
+        const textInput = formGroup.querySelector('.file-upload-info');
+
+        button.addEventListener('click', e => {
+            e.stopPropagation();
+            input.click();
+        });
+
+        input.addEventListener('change', () => {
+            if (input.files.length) textInput.value = input.files[0].name;
+        });
+    });
 </script>
 @endsection

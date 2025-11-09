@@ -24,6 +24,6 @@
         <i class="mdi mdi-content-save-all menu-icon"></i>
         <span class="menu-title">Laporan</span>
       </a>
-    </li>    
+    </li>
   </ul>
 </nav>

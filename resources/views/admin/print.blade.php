@@ -38,11 +38,11 @@
         <th>Catatan</th>
     </tr>
     <tr>
-        <td>{{ $data->created_at->toDateString() }}</td>
+        <td>{{ $data->date }}</td>
         <td>Rp. {{ number_format($data->debit, 0, ',', '.') }}</td>
         <td>Rp. {{ number_format($data->credit, 0, ',', '.') }}</td>
         <td>{{ $data->type_payment }}</td>
-        <td>
+        <td style="width: 180px;">
             @if($data->proof_payment)
                 <img src="{{ asset('storage/' . $data->proof_payment) }}" 
                      alt="Bukti"

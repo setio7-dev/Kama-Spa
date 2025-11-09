@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function() {
         Route::get('/dana', [AccountingController::class, 'dana'])->name('keuanganDana');
 
         Route::put('/dana/status/{id}', [AccountingController::class, 'status'])->name('keuanganDanaStatus');
+
+        Route::get('/laporan', [AccountingController::class, 'report'])->name('accountingReport');
+        Route::get('/laporan/print/{id}', [AccountingController::class, "reportPrint"])->name('accountingReportPrint');
     });
 
     // Pimpinan

@@ -72,7 +72,7 @@ class AdminDashboardController extends Controller
         $cash = Kas::where('status', 'accepted')->sum('nominal');
 
         $total = $closindDebit + $cash - $closindCredit;
-        $totalClosing = ($closindDebit - $closindCredit) - $debit + $cash - $credit;
+        $totalClosing = ($closindDebit - $closindCredit) + ($debit + $cash - $credit);
         $listPayment = KasPayment::orderBy("created_at", "DESC")->get();
 
         return view('admin.pengelolaan', compact("total", "totalClosing", "debit", "credit", "listPayment"));
@@ -88,6 +88,8 @@ class AdminDashboardController extends Controller
     {
         $validateData = Validator::make($request->all(), [
             "type_payment" => "required",
+            "date" => "required",
+            "desc" => 'required',
         ]);
 
         if ($validateData->fails()) {
@@ -108,6 +110,8 @@ class AdminDashboardController extends Controller
             "debit" => 0,
             "type_payment" => $request->type_payment,
             "proof_payment" => $path,
+            "desc" => $request->desc,
+            "date" => $request->date,
             "notes" => $request->notes ?? "-"
         ]);
 
@@ -122,6 +126,8 @@ class AdminDashboardController extends Controller
     {
         $validateData = Validator::make($request->all(), [
             "type_payment" => "required",
+            "date" => 'required',
+            "desc" => 'required',
         ]);
 
         if ($validateData->fails()) {
@@ -142,6 +148,8 @@ class AdminDashboardController extends Controller
             "debit" => $request->debit,
             "type_payment" => $request->type_payment,
             "proof_payment" => $path,
+            "desc" => $request->desc,
+            "date" => $request->date,
             "notes" => $request->notes ?? "-"
         ]);
 
@@ -163,7 +171,7 @@ class AdminDashboardController extends Controller
         $cash = Kas::where('status', 'accepted')->sum('nominal');
 
         $total = $closindDebit + $cash - $closindCredit;
-        $totalClosing = ($closindDebit - $closindCredit) - $debit + $cash - $credit;
+        $totalClosing = ($closindDebit - $closindCredit) + ($debit + $cash - $credit);
         $listPayment = KasPayment::all();
 
         $cashParent = CloseKasParent::create([
@@ -180,6 +188,8 @@ class AdminDashboardController extends Controller
                 "debit" => $listPayment[$i]->debit,
                 "type_payment" => $listPayment[$i]->type_payment,
                 "proof_payment" => $listPayment[$i]->proof_payment,
+                "desc" => $listPayment[$i]->desc,
+                "date" => $listPayment[$i]->date,
                 "notes" => $listPayment[$i]->notes,
             ]);
         }

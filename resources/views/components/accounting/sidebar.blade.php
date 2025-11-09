@@ -11,6 +11,12 @@
         <i class="mdi mdi-content-save-all menu-icon"></i>
         <span class="menu-title">Dana</span>
       </a>
-    </li>    
+    </li> 
+    <li class="nav-item {{ request()->path() == 'keuangan/laporan' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('accountingReport') }}">
+        <i class="mdi mdi-content-save-all menu-icon"></i>
+        <span class="menu-title">Laporan</span>
+      </a>
+    </li>   
   </ul>
 </nav>

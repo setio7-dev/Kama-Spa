@@ -52,6 +52,7 @@
 <table>
     <tr>
         <th>No</th>
+        <th>Tanggal</th>
         <th>Debit</th>
         <th>Kredit</th>
         <th>Jenis Biaya</th>
@@ -61,6 +62,7 @@
     @foreach ($parent->cashChild as $i => $row)
     <tr>
         <td>{{ $i+1 }}</td>
+        <td>{{ $row->date }}</td>
         <td>Rp {{ number_format($row->debit, 0, ',', '.') }}</td>
         <td>Rp {{ number_format($row->credit, 0, ',', '.') }}</td>
         <td>{{ $row->type_payment }}</td>

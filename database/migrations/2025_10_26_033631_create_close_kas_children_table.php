@@ -18,6 +18,8 @@ return new class extends Migration
             $table->bigInteger("debit");
             $table->text("type_payment");
             $table->string("proof_payment");
+            $table->string("desc");
+            $table->string("date");
             $table->text("notes");
 
             $table->foreign("kas_parent")->references("id")->on("close_kas_parents")->onDelete("CASCADE");

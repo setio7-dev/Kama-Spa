@@ -19,7 +19,7 @@ class LeaderController extends Controller
         
         $cash = Kas::where('status', 'accepted')->sum('nominal');
 
-        $total = ($closindDebit - $closindCredit) + $debit + $cash - $credit;
+        $total = ($closindDebit - $closindCredit) + ($debit + $cash - $credit);
         $totalClosing = $closindDebit + $cash - $closindCredit;
 
         return view('leader.dashboard', compact("total", "totalClosing"));

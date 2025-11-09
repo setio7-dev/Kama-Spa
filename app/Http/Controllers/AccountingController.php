@@ -20,7 +20,7 @@ class AccountingController extends Controller
         
         $cash = Kas::where('status', 'accepted')->sum('nominal');
 
-        $total = ($closindDebit - $closindCredit) + $debit + $cash - $credit;
+        $total = ($closindDebit - $closindCredit) + ($debit + $cash - $credit);
         $totalClosing = $closindDebit + $cash - $closindCredit;
 
         return view('accounting.dashboard', compact("total", "totalClosing"));
@@ -57,5 +57,17 @@ class AccountingController extends Controller
             "icon" => "success",
             "message" => "Kas Berhasil Dikonfirmasi!"
         ]);    
+    }
+
+    public function report()
+    {
+        $closeKasParent = CloseKasParent::with('cashChild')->orderBy("created_at", "DESC")->get();
+        return view('accounting.report', compact('closeKasParent'));
+    }
+
+    public function reportPrint(string $id)
+    {
+        $parent = CloseKasParent::findOrFail($id);
+        return view('accounting.report-print', compact('parent'));
     }
 }
