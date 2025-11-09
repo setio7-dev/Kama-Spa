@@ -17,6 +17,7 @@ Route::post('/', [UserController::class, 'login'])->name('loginPost');
 Route::middleware('auth')->group(function() {
     // Logout
     Route::post("/logout", [UserController::class, 'logout'])->name("logoutPost");
+    Route::put("/update/user/{routes}", [UserController::class, 'update'])->name("updateUser");
 
     // Admin
     Route::prefix('/admin')->group(function() {

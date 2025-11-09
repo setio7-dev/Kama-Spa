@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +25,7 @@
                     @yield('dashboard')
                 </div>
                 @include('components.footer')
-            </div>                
+            </div>
         </div>
     </div>
 </body>
@@ -39,46 +40,46 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if (session('message'))
-<script>
-    (async () => {
-        const route = "{{ session('route') }}";
-        const message = "{{ session('message') }}";
-        const icon = "{{ session('icon') }}";
+    <script>
+        (async () => {
+            const route = "{{ session('route') }}";
+            const message = "{{ session('message') }}";
+            const icon = "{{ session('icon') }}";
 
-        Swal.fire({
-            title: "Memuat...",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading();
-            },
-        });
+            Swal.fire({
+                title: "Memuat...",
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
 
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        Swal.fire({
-            title: message,
-            icon: icon,
-            confirmButtonText: "Oke",
-            confirmButtonColor: `${icon === "success" ? 'green' : 'red'}`
-        });
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            Swal.fire({
+                title: message,
+                icon: icon,
+                confirmButtonText: "Oke",
+                confirmButtonColor: `${icon === "success" ? 'green' : 'red'}`
+            });
 
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        window.location.href = route;
-    })();
-</script>
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            window.location.href = route;
+        })();
+    </script>
 @endif
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.5.3/js/fileinput.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.5.3/css/fileinput.min.css" rel="stylesheet">
 <script>
-    $(document).on('click', '.file-upload-browse', function() {
-      var file = $(this).parents().find('.file-upload-default');
-      file.trigger('click');
+    $(document).on('click', '.file-upload-browse', function () {
+        var file = $(this).parents().find('.file-upload-default');
+        file.trigger('click');
     });
-    
-    $('.file-upload-default').on('change', function() {
-      $(this).parent().find('.file-upload-info').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+
+    $('.file-upload-default').on('change', function () {
+        $(this).parent().find('.file-upload-info').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
 </script>
 

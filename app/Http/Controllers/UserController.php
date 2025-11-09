@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function login( Request $request)
+    public function login(Request $request)
     {
         $validateData = Validator::make($request->all(), [
             "email" => "required",
@@ -88,9 +88,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $routes)
     {
-        //
+        $user = Auth::user();
+        $user->update([
+            "name"=> $request->name ?? $user->name,
+            "email"=> $request->eamil ?? $user->email,
+            "password"=> Hash::make( $request->password) ?? $user->password,
+        ]);
+        return redirect()->route($routes)->with([
+            "route" => route($routes),
+            "icon" => "success",
+            "message" => "Ubah Profile Berhasil!"
+        ]);
     }
 
     /**
