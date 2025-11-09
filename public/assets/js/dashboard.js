@@ -77,95 +77,71 @@
 
     }
     if ($("#sales-chart").length) {
-      const ctx = document.getElementById('sales-chart');
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-            datasets: [{
-              label: 'Offline Sales',
-              data: [480, 230, 470, 210, 330],
-              backgroundColor: '#98BDFF',
-              borderRadius:5,
+      fetch("/api/graphic")
+        .then(res => res.json())
+        .then(res => {
+          const labels = res.data.map(item => item.type_payment);
+          const dataValues = res.data.map(item => item.credit);
+        
+          const ctx = document.getElementById('sales-chart');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Kredit',
+                data: dataValues,
+                backgroundColor: '#6F4E37',
+                borderRadius: 5
+              }]
             },
-            {
-              label: 'Online Sales',
-              data: [400, 340, 550, 480, 170],
-              backgroundColor: '#4B49AC',
-              borderRadius:5,
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          scales: {
-            x: {
-              border: {
-                display: false
-              },
-              grid: {
-                display: false,
-                drawTicks: true,
-                color: "rgba(0, 0, 0, 0)",
-              },
-              ticks: {
-                display: true,
-                color:"#6C7383",
-                    
-              },
-            },
-            y: {
-              border: {
-                display: false
-              },
-              grid: {
-                display:true,
-              },
-              ticks: {
-                color: "#6C7383",
-                min: 0,
-                max: 560,
-                autoSkip: true,
-                maxTicksLimit: 10,
-                color:"#6C7383",
-                callback: function(value, index, values) {
-                  return  value + '$' ;
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              scales: {
+                x: {
+                  border: { display: false },
+                  grid: { display: false, drawTicks: true, color: "rgba(0, 0, 0, 0)" },
+                  ticks: { display: true, color: "#6C7383" }
                 },
-                autoSkip: true,
-                maxTicksLimit: 10,
-              },
-            }
-          },
-          plugins: {
-            legend: {
-                display: false,
-                labels: {
-                    color: 'rgb(255, 99, 132)'
+                y: {
+                  border: { display: false },
+                  grid: { display: true },
+                  ticks: {
+                    min: 0,
+                    max: Math.max(...dataValues) + 1000,
+                    color: "#6C7383",
+                    callback: function(value) { return value + '$'; },
+                    autoSkip: true,
+                    maxTicksLimit: 10
+                  }
                 }
-            }
-          }
-        },
-        plugins: [{
-          afterDatasetUpdate: function (chart, args, options) {
-              const chartId = chart.canvas.id;
-              var i;
-              const legendId = `${chartId}-legend`;
-              const ul = document.createElement('ul');
-              for(i=0;i<chart.data.datasets.length; i++) {
-                  ul.innerHTML += `
-                  <li>
-                    <span style="background-color: ${chart.data.datasets[i].backgroundColor}"></span>
-                    ${chart.data.datasets[i].label}
-                  </li>
-                `;
+              },
+              plugins: {
+                legend: { display: false }
               }
-              return document.getElementById(legendId).appendChild(ul);
-            }
-        }]
-      });
-    
-    }
+            },
+            plugins: [{
+              afterDatasetUpdate: function(chart) {
+                const chartId = chart.canvas.id;
+                const legendId = `${chartId}-legend`;
+                const ul = document.createElement('ul');
+                chart.data.datasets.forEach(ds => {
+                  ul.innerHTML += `
+                    <li>
+                      <span style="background-color: ${ds.backgroundColor}"></span>
+                      ${ds.label}
+                    </li>
+                  `;
+                });
+                const container = document.getElementById(legendId);
+                container.innerHTML = '';
+                container.appendChild(ul);
+              }
+            }]
+          });
+        });
+    }   
     if ($("#north-america-chart").length) { 
       const doughnutChartCanvas = document.getElementById('north-america-chart');
       new Chart(doughnutChartCanvas, {

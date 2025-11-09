@@ -26,5 +26,6 @@
             </div>
         </div>            
     </div>
+    @include('components.graphic')
 </div>
 @endsection
