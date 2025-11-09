@@ -111,7 +111,7 @@
                     min: 0,
                     max: Math.max(...dataValues) + 1000,
                     color: "#6C7383",
-                    callback: function(value) { return value + '$'; },
+                    callback: function(value) { return 'Rp.' + value; },
                     autoSkip: true,
                     maxTicksLimit: 10
                   }
