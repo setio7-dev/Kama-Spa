@@ -80,14 +80,14 @@ class UserController extends Controller
     {
         $auth = Auth::user();
         $user = User::where("id", $auth->id)->first();
-        return view('admin.profile', compact('user'));
+        return view('accounting.profile', compact('user'));
     }
 
     public function leaderShow()
     {
         $auth = Auth::user();
         $user = User::where("id", $auth->id)->first();
-        return view('admin.profile', compact('user'));
+        return view('leader.profile', compact('user'));
     }
 
     public function update(Request $request, $routes)

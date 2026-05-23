@@ -1,28 +1,28 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-    <li class="nav-item {{ request()->path() == 'keuangan/dashboard' ? 'active' : '' }}">
-      <a class="nav-link" href="{{ route('keuanganDashboard') }}">
-        <i class="icon-grid menu-icon"></i>
-        <span class="menu-title">Dashboard</span>
+<nav class="ks-sidebar" id="ks-sidebar">
+  <ul class="ks-sidebar-nav">
+    <li class="ks-nav-item {{ request()->path() == 'keuangan/dashboard' ? 'active' : '' }}">
+      <a class="ks-nav-link" href="{{ route('keuanganDashboard') }}">
+        <i class="icon-grid ks-nav-icon"></i>
+        <span class="ks-nav-title">Dashboard</span>
       </a>
-    </li>     
-    <li class="nav-item {{ request()->path() == 'keuangan/dana' ? 'active' : '' }}">
-      <a class="nav-link" href="{{ route('keuanganDana') }}">
-        <i class="mdi mdi-content-save-all menu-icon"></i>
-        <span class="menu-title">Dana</span>
+    </li>
+    <li class="ks-nav-item {{ request()->path() == 'keuangan/dana' ? 'active' : '' }}">
+      <a class="ks-nav-link" href="{{ route('keuanganDana') }}">
+        <i class="mdi mdi-cash ks-nav-icon"></i>
+        <span class="ks-nav-title">Dana</span>
       </a>
-    </li> 
-    <li class="nav-item {{ request()->path() == 'keuangan/laporan' ? 'active' : '' }}">
-      <a class="nav-link" href="{{ route('accountingReport') }}">
-        <i class="mdi mdi-content-save-all menu-icon"></i>
-        <span class="menu-title">Laporan</span>
+    </li>
+    <li class="ks-nav-item {{ request()->path() == 'keuangan/laporan' ? 'active' : '' }}">
+      <a class="ks-nav-link" href="{{ route('accountingReport') }}">
+        <i class="mdi mdi-content-save-all ks-nav-icon"></i>
+        <span class="ks-nav-title">Laporan</span>
       </a>
-    </li>  
-    <li class="nav-item {{ request()->path() == 'keuangan/profile' ? 'active' : '' }}">
-      <a class="nav-link" href="{{ route('keuanganProfile') }}">
-        <i class="mdi mdi-account menu-icon"></i>
-        <span class="menu-title">Profil</span>
+    </li>
+    <li class="ks-nav-item {{ request()->path() == 'keuangan/profile' ? 'active' : '' }}">
+      <a class="ks-nav-link" href="{{ route('keuanganProfile') }}">
+        <i class="mdi mdi-account ks-nav-icon"></i>
+        <span class="ks-nav-title">Profil</span>
       </a>
-    </li> 
+    </li>
   </ul>
 </nav>

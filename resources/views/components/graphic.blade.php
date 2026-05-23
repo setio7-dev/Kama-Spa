@@ -1,14 +1,13 @@
-<div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <p class="card-title">Laporan Grafik</p>
-                </div>
-                <p class="font-weight-500">Laporan Grafik Kredit yang Keluar</p>
-                <div id="sales-chart-legend" class="chartjs-legend mt-4 mb-2"></div>
-                <canvas id="sales-chart"></canvas>
-            </div>
+<div class="ks-card" style="margin-top: 1.5rem;">
+    <div class="ks-card-header">
+        <i class="mdi mdi-chart-line"></i>
+        Laporan Grafik
+    </div>
+    <div class="ks-card-body">
+        <p style="font-size: 0.75rem; letter-spacing: 0.12em; color: rgba(210,180,130,0.45); text-transform: uppercase; margin-bottom: 1rem;">Laporan Grafik Kredit yang Keluar</p>
+        <div id="sales-chart-legend" style="margin-bottom: 0.75rem;"></div>
+        <div style="width: 40vw">
+            <canvas id="sales-chart"></canvas>
         </div>
     </div>
 </div>

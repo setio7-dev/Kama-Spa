@@ -1,208 +1,182 @@
 @extends('components.admin.dashboard')
 @section('dashboard')
-<div class="">
-    <div class="row" style="margin-bottom: 12px;">
-        <div class="col-12">
-            <h3 class="font-weight-bold">Pengelolaan Kas</h3>
-        </div>
+<h2 class="ks-page-title">Pengelolaan Kas</h2>
+
+<div class="ks-grid-4" style="margin-bottom: 1.5rem;">
+    <div class="ks-stat-card">
+        <p class="ks-stat-label">Saldo Awal</p>
+        <p class="ks-stat-value">Rp. {{ number_format($total, 0, ',', '.') }}</p>
     </div>
-
-    <div class="row">
-        <div class="col-md-3 mb-4 stretch-card transparent">
-            <div class="card card-white">
-                <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Saldo Awal</p>
-                    <h6 class="text-primary">Rp. {{ number_format($total, 0, ',', ',') }}</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4 stretch-card transparent">
-            <div class="card card-white">
-                <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Saldo Akhir</p>
-                    <h6 class="text-primary">Rp. {{ number_format($totalClosing, 0, ',', ',') }}</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4 stretch-card transparent">
-            <div class="card card-white">
-                <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Total Debit</p>
-                    <h6 class="text-primary">Rp. {{ number_format($debit, 0, ',', ',') }}</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4 stretch-card transparent">
-            <div class="card card-white">
-                <div class="card-body text-center">
-                    <p class="mb-2" style="font-weight: 600;">Total Credit</p>
-                    <h6 class="text-primary">Rp. {{ number_format($credit, 0, ',', ',') }}</h6>
-                </div>
-            </div>
-        </div>
+    <div class="ks-stat-card">
+        <p class="ks-stat-label">Saldo Akhir</p>
+        <p class="ks-stat-value">Rp. {{ number_format($totalClosing, 0, ',', '.') }}</p>
     </div>
-
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex" style="gap: 20px;">
-                    <h4 id="tabCredit" class="card-title text-primary" style="cursor: pointer;">Kredit</h4>
-                    <h4 id="tabDebit" class="card-title" style="cursor: pointer;">Debit</h4>
-                </div>
-
-                <form id="formCredit" class="forms-sample" action="{{ route('adminPengelolaanCreditPost') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label>Nominal</label>
-                        <input type="number" name="credit" class="form-control" placeholder="Nominal">
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Barang</label>
-                        <select name="type_payment" class="form-select">
-                            <option value="Alat Kebersihan">Alat Kebersihan</option>
-                            <option value="Transportasi">Transportasi</option>
-                            <option value="Komisi">Komisi</option>
-                            <option value="Konsumsi">Konsumsi</option>
-                            <option value="Alat Kantor">Alat Kantor</option>
-                            <option value="Lain-lain">Lain-Lainnya</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Bukti Pembayaran</label>
-                        <div class="input-group col-xs-12 d-flex align-items-center">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                            <span class="input-group-append ms-2">
-                                <button type="button" class="file-upload-browse btn btn-primary">Unggah</button>
-                            </span>
-                        </div>
-                        <input type="file" name="image" class="file-upload-default" style="display:none;">
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal</label>
-                        <input type="date" name="date" class="form-control" placeholder="Tanggal">
-                    </div>
-                    <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea name="desc" class="form-control" rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Catatan</label>
-                        <textarea name="notes" class="form-control" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary me-2">Tambah</button>
-                </form>
-
-                <form id="formDebit" class="forms-sample" action="{{ route('adminPengelolaanDebitPost') }}" method="post" enctype="multipart/form-data" style="display: none;">
-                    @csrf
-                    <div class="form-group">
-                        <label>Nominal</label>
-                        <input type="number" name="debit" class="form-control" placeholder="Nominal">
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Barang</label>
-                        <select name="type_payment" class="form-select">                            
-                            <option value="Kas Masuk">Kas Masuk</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Bukti Pembayaran</label>
-                        <div class="input-group col-xs-12 d-flex align-items-center">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                            <span class="input-group-append ms-2">
-                                <button type="button" class="file-upload-browse btn btn-primary">Unggah</button>
-                            </span>
-                        </div>
-                        <input type="file" name="image" class="file-upload-default" style="display:none;">
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal</label>
-                        <input type="date" name="date" class="form-control" placeholder="Tanggal">
-                    </div>
-                    <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea name="desc" class="form-control" rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Catatan</label>
-                        <textarea name="notes" class="form-control" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary me-2">Tambah</button>
-                </form>                
-            </div>
-        </div>
+    <div class="ks-stat-card">
+        <p class="ks-stat-label">Total Debit</p>
+        <p class="ks-stat-value">Rp. {{ number_format($debit, 0, ',', '.') }}</p>
     </div>
+    <div class="ks-stat-card">
+        <p class="ks-stat-label">Total Credit</p>
+        <p class="ks-stat-value">Rp. {{ number_format($credit, 0, ',', '.') }}</p>
+    </div>
+</div>
 
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <form action="{{ route('adminPengelolaanClosingPost') }}" method="post">
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-white">Tutup Kas</button>
-                </form>
-                <div class="table-responsive mt-4">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Debit</th>
-                                <th>Kredit</th>
-                                <th>Jenis Barang</th>
-                                <th>Note</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($listPayment as $index => $data)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $data->date }}</td>
-                                    <td>Rp. {{ number_format($data->debit, 0, ',', ',') }}</td>
-                                    <td>Rp. {{ number_format($data->credit, 0, ',', ',') }}</td>
-                                    <td>{{ $data->type_payment }}</td>
-                                    <td>{{ $data->notes }}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('adminPengelolaanPrint', $data->id) }}" target="_blank" class="me-2">
-                                            <button class="btn btn-success text-white">Cetak</button>
-                                        </a>
-                                        <form action="{{ route('adminPengelolaanDelete', $data->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="me-2">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger text-white">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+<div class="ks-card" style="margin-bottom: 1.5rem;">
+    <div class="ks-card-body">
+        <div class="ks-tab-group">
+            <div class="ks-tab active" id="tabCredit" onclick="switchTab('credit')">Kredit</div>
+            <div class="ks-tab" id="tabDebit" onclick="switchTab('debit')">Debit</div>
+        </div>
+
+        <form id="formCredit" action="{{ route('adminPengelolaanCreditPost') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="ks-form-group">
+                <label class="ks-label">Nominal</label>
+                <input type="number" name="credit" class="ks-input" placeholder="Nominal">
             </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Jenis Barang</label>
+                <select name="type_payment" class="ks-select">
+                    <option value="Alat Kebersihan">Alat Kebersihan</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Komisi">Komisi</option>
+                    <option value="Konsumsi">Konsumsi</option>
+                    <option value="Alat Kantor">Alat Kantor</option>
+                    <option value="Lain-lain">Lain-Lainnya</option>
+                </select>
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Bukti Pembayaran</label>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <input type="text" class="ks-input file-upload-info" disabled placeholder="Upload gambar...">
+                    <button type="button" class="ks-btn ks-btn-primary file-upload-browse">Unggah</button>
+                </div>
+                <input type="file" name="image" class="file-upload-default" style="display:none;">
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Tanggal</label>
+                <input type="date" name="date" class="ks-input">
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Deskripsi</label>
+                <textarea name="desc" class="ks-textarea" rows="4"></textarea>
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Catatan</label>
+                <textarea name="notes" class="ks-textarea" rows="4"></textarea>
+            </div>
+            <button type="submit" class="ks-btn ks-btn-primary">Tambah</button>
+        </form>
+
+        <form id="formDebit" action="{{ route('adminPengelolaanDebitPost') }}" method="post" enctype="multipart/form-data" style="display: none;">
+            @csrf
+            <div class="ks-form-group">
+                <label class="ks-label">Nominal</label>
+                <input type="number" name="debit" class="ks-input" placeholder="Nominal">
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Jenis Barang</label>
+                <select name="type_payment" class="ks-select">
+                    <option value="Kas Masuk">Kas Masuk</option>
+                </select>
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Bukti Pembayaran</label>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <input type="text" class="ks-input file-upload-info" disabled placeholder="Upload gambar...">
+                    <button type="button" class="ks-btn ks-btn-primary file-upload-browse">Unggah</button>
+                </div>
+                <input type="file" name="image" class="file-upload-default" style="display:none;">
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Tanggal</label>
+                <input type="date" name="date" class="ks-input">
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Deskripsi</label>
+                <textarea name="desc" class="ks-textarea" rows="4"></textarea>
+            </div>
+            <div class="ks-form-group">
+                <label class="ks-label">Catatan</label>
+                <textarea name="notes" class="ks-textarea" rows="4"></textarea>
+            </div>
+            <button type="submit" class="ks-btn ks-btn-primary">Tambah</button>
+        </form>
+    </div>
+</div>
+
+<div class="ks-card">
+    <div class="ks-card-body">
+        <div style="margin-bottom: 1.2rem;">
+            <form action="{{ route('adminPengelolaanClosingPost') }}" method="post">
+                @csrf
+                <button type="submit" class="ks-btn ks-btn-danger">
+                    <i class="mdi mdi-lock-outline"></i> Tutup Kas
+                </button>
+            </form>
+        </div>
+        <div class="ks-table-wrap">
+            <table class="ks-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Debit</th>
+                        <th>Kredit</th>
+                        <th>Jenis Barang</th>
+                        <th>Catatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($listPayment as $index => $data)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data->date }}</td>
+                        <td>Rp. {{ number_format($data->debit, 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($data->credit, 0, ',', '.') }}</td>
+                        <td>{{ $data->type_payment }}</td>
+                        <td>{{ $data->notes }}</td>
+                        <td style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <a href="{{ route('adminPengelolaanPrint', $data->id) }}" target="_blank">
+                                <button class="ks-btn ks-btn-success" style="padding: 0.45rem 0.9rem;">Cetak</button>
+                            </a>
+                            <form action="{{ route('adminPengelolaanDelete', $data->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="ks-btn ks-btn-danger" style="padding: 0.45rem 0.9rem;">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <script>
-    const tabCredit = document.getElementById('tabCredit');
-    const tabDebit = document.getElementById('tabDebit');
-    const formCredit = document.getElementById('formCredit');
-    const formDebit = document.getElementById('formDebit');
+    function switchTab(tab) {
+        const tabCredit = document.getElementById('tabCredit');
+        const tabDebit = document.getElementById('tabDebit');
+        const formCredit = document.getElementById('formCredit');
+        const formDebit = document.getElementById('formDebit');
 
-    tabCredit.onclick = () => {
-        tabCredit.classList.add('text-primary');
-        tabDebit.classList.remove('text-primary');
-        formCredit.style.display = '';
-        formDebit.style.display = 'none';
-    };
-
-    tabDebit.onclick = () => {
-        tabDebit.classList.add('text-primary');
-        tabCredit.classList.remove('text-primary');
-        formCredit.style.display = 'none';
-        formDebit.style.display = '';
-    };
+        if (tab === 'credit') {
+            tabCredit.classList.add('active');
+            tabDebit.classList.remove('active');
+            formCredit.style.display = '';
+            formDebit.style.display = 'none';
+        } else {
+            tabDebit.classList.add('active');
+            tabCredit.classList.remove('active');
+            formCredit.style.display = 'none';
+            formDebit.style.display = '';
+        }
+    }
 
     document.querySelectorAll('.file-upload-browse').forEach(button => {
-        const formGroup = button.closest('.form-group');
+        const formGroup = button.closest('.ks-form-group');
         const input = formGroup.querySelector('.file-upload-default');
         const textInput = formGroup.querySelector('.file-upload-info');
 

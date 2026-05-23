@@ -1,6 +1,19 @@
-<footer class="footer">
-  <div class="d-sm-flex justify-content-center justify-content-sm-between">
-    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025. KAMA Spa.</span>
-    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted</span>
-  </div>
+<footer class="ks-footer">
+  <span>Copyright &copy; 2025. KAMA Spa.</span>
+  <span>Hand-crafted with care</span>
 </footer>
+
+<style>
+  .ks-footer {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(210, 180, 130, 0.1);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: rgba(210, 180, 130, 0.35);
+    margin-top: auto;
+  }
+</style>
